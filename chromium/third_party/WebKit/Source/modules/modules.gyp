@@ -98,6 +98,19 @@
             'msvs_shard': 4,
           }],
         ],
+      }],
+      ['enable_palmbridge==1', {
+        'cflags_cc': [
+          '<!@(pkg-config --cflags-only-I luna-service2)',
+          '<!@(pkg-config --cflags-only-I glib-2.0)',
+        ],
+        'link_settings': {
+          'libraries': [
+            '<!@(pkg-config --libs luna-service2)',
+            '<!@(pkg-config --libs glib-2.0)',
+            '-lPmLogLib',
+          ]
+        },
       }]
     ],
     # Disable c4267 warnings until we fix size_t to int truncations.

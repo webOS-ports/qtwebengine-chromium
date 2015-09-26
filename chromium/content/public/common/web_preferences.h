@@ -253,6 +253,10 @@ struct CONTENT_EXPORT WebPreferences {
   // in WebSettings.
   float default_minimum_page_scale_factor;
   float default_maximum_page_scale_factor;
+  // Follwing settings are for LuneOS usage
+  bool luneosPriviledged;
+  bool palmServiceBridgeEnabled;
+  std::string luneosAppIdentifier;
 
   // We try to keep the default values the same as the default values in
   // chrome, except for the cases where it would require lots of extra work for

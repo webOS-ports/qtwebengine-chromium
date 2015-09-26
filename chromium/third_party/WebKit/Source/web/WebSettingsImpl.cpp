@@ -813,4 +813,18 @@ void WebSettingsImpl::setViewportStyle(WebViewportStyle style)
     m_devToolsEmulator->setViewportStyle(style);
 }
 
+// LuneOS specific settings
+void WebSettingsImpl::setLuneosAppIdentifier(const WebString& appId)
+{
+    m_settings->setLuneosAppIdentifier(appId);
+}
+void WebSettingsImpl::setLuneosPriviledged(bool enabled)
+{
+    m_settings->setLuneosPriviledged(enabled);
+}
+void WebSettingsImpl::setPalmServiceBridgeEnabled(bool enabled)
+{
+    m_settings->setPalmServiceBridgeEnabled(enabled);
+}
+
 } // namespace blink

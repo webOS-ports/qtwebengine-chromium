@@ -411,3 +411,16 @@ useDefaultImageInterpolationQuality initial=false
 # Variant of the ParseHTMLOnMainThread experiment. One experiment immediately
 # tokenizes input bytes. The default is to tokenize with a post task.
 parseHTMLOnMainThreadSyncTokenize initial=false
+
+reportWheelOverscroll initial=false
+
+# #### LuneOS specific #####
+
+# Whether PalmBridge is enabled or not
+palmServiceBridgeEnabled initial=false
+
+# Whether the LuneOS app has priviledge access
+luneosPriviledged initial=false
+
+# LuneOS app identifier
+luneosAppIdentifier type=String, initial=""

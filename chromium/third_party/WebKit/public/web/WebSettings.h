@@ -191,6 +191,8 @@ public:
     virtual void setShouldReuseGlobalForUnownedMainFrame(bool) = 0;
     virtual void setProgressBarCompletion(ProgressBarCompletion) = 0;
     virtual void setLocalStorageEnabled(bool) = 0;
+    virtual void setLuneosAppIdentifier(const WebString&) = 0;
+    virtual void setLuneosPriviledged(bool) = 0;
     virtual void setMainFrameClipsContent(bool) = 0;
     virtual void setMainFrameResizesAreOrientationChanges(bool) = 0;
     virtual void setMaxTouchPoints(int) = 0;
@@ -203,6 +205,8 @@ public:
     virtual void setMockScrollbarsEnabled(bool) = 0;
     virtual void setOfflineWebApplicationCacheEnabled(bool) = 0;
     virtual void setPassiveEventListenerDefault(PassiveEventListenerDefault) = 0;
+    virtual void setOpenGLMultisamplingEnabled(bool) = 0;
+    virtual void setPalmServiceBridgeEnabled(bool) = 0;
     virtual void setPasswordEchoDurationInSeconds(double) = 0;
     virtual void setPasswordEchoEnabled(bool) = 0;
     virtual void setPerTilePaintingEnabled(bool) = 0;

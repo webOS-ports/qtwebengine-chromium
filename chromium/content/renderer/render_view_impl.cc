@@ -1125,6 +1125,9 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
 #elif defined(TOOLKIT_QT)
   settings->setFullscreenSupported(prefs.fullscreen_supported);
 #endif
+  settings->setLuneosPriviledged(prefs.luneosPriviledged);
+  settings->setPalmServiceBridgeEnabled(prefs.palmServiceBridgeEnabled);
+  settings->setLuneosAppIdentifier(base::ASCIIToUTF16(prefs.luneosAppIdentifier));
 
   settings->setAutoplayExperimentMode(
       blink::WebString::fromUTF8(prefs.autoplay_experiment_mode));

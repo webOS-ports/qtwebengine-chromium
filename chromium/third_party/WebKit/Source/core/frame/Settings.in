@@ -305,3 +305,11 @@ accessibilityPasswordValuesEnabled initial=false
 
 # If true, static text nodes expose inline text box children.
 inlineTextBoxAccessibilityEnabled initial=false
+
+# #### LuneOS specific #####
+
+# Whether the LuneOS app has priviledge access
+luneosPriviledged initial=false
+
+# LuneOS app identifier
+luneosAppIdentifier type=String, initial=""

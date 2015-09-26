@@ -58,7 +58,15 @@
       '<(bindings_modules_v8_output_dir)/initPartialInterfacesInModules.cpp',
     ],
     # Disable c4267 warnings until we fix size_t to int truncations.
-    'msvs_disabled_warnings': [ 4267, 4334, ]
+    'msvs_disabled_warnings': [ 4267, 4334, ],
+    'conditions': [
+      ['enable_palmbridge==1', {
+        'cflags_cc': [
+          '<!@(pkg-config --cflags-only-I luna-service2)',
+          '<!@(pkg-config --cflags-only-I glib-2.0)',
+        ],
+      }],
+    ],
   },
   {
     # GN version: //third_party/WebKit/Source/modules:modules_testing

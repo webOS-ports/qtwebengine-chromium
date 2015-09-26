@@ -1060,5 +1060,19 @@
       'websockets/DOMWebSocketTest.cpp',
       'websockets/DocumentWebSocketChannelTest.cpp',
     ],
+    'conditions': [
+      ['enable_palmbridge==1', {
+        'modules_files': [
+          'webos/PalmServiceBridge.h',
+          'webos/LunaServiceMgr.cpp',
+          'webos/Logging.h',
+          'webos/PalmServiceBridge.cpp',
+          'webos/LunaServiceMgr.h',
+        ],
+        'modules_idl_files': [
+          'webos/PalmServiceBridge.idl',
+        ],
+      }],
+    ],
   },
 }

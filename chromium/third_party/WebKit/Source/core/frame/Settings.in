@@ -384,3 +384,14 @@ autoplayExperimentMode type=String, initial="off"
 # When DevTools is emulating mobile device, frame resize may mean device size has changed,
 # which in turn affects media queries.
 resizeIsDeviceSizeChange initial=false
+
+# #### LuneOS specific #####
+
+# Whether PalmBridge is enabled or not
+palmServiceBridgeEnabled initial=false
+
+# Whether the LuneOS app has priviledge access
+luneosPriviledged initial=false
+
+# LuneOS app identifier
+luneosAppIdentifier type=String, initial=""

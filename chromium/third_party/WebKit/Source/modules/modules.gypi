@@ -291,6 +291,7 @@
       'webmidi/MIDIPort.idl',
       'websockets/CloseEvent.idl',
       'websockets/WebSocket.idl',
+      'webos/PalmServiceBridge.idl',
     ],
     # 'partial interface' or target (right side of) 'implements'
     'modules_dependency_idl_files': [
@@ -1668,6 +1669,11 @@
       'websockets/WebSocketFrame.h',
       'websockets/WorkerWebSocketChannel.cpp',
       'websockets/WorkerWebSocketChannel.h',
+      'webos/PalmServiceBridge.h',
+      'webos/LunaServiceMgr.cpp',
+      'webos/Logging.h',
+      'webos/PalmServiceBridge.cpp',
+      'webos/LunaServiceMgr.h',
     ],
     # 'partial interface' or target (right side of) 'implements'
     'modules_testing_dependency_idl_files' : [
@@ -1730,6 +1736,14 @@
       'webaudio/StereoPannerNodeTest.cpp',
       'websockets/DOMWebSocketTest.cpp',
       'websockets/DocumentWebSocketChannelTest.cpp',
+    ],
+    'conditions': [
+      ['enable_palmbridge==1', {
+        'modules_files': [
+        ],
+        'modules_idl_files': [
+        ],
+      }],
     ],
   },
 }

@@ -229,6 +229,9 @@ IPC_STRUCT_TRAITS_BEGIN(content::WebPreferences)
 #endif
   IPC_STRUCT_TRAITS_MEMBER(default_minimum_page_scale_factor)
   IPC_STRUCT_TRAITS_MEMBER(default_maximum_page_scale_factor)
+  IPC_STRUCT_TRAITS_MEMBER(luneosPriviledged)
+  IPC_STRUCT_TRAITS_MEMBER(palmServiceBridgeEnabled)
+  IPC_STRUCT_TRAITS_MEMBER(luneosAppIdentifier)
 IPC_STRUCT_TRAITS_END()
 
 IPC_STRUCT_TRAITS_BEGIN(blink::WebWindowFeatures)

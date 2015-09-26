@@ -1,0 +1,14 @@
+callback ServiceCallback = void (DOMString message);
+
+[
+    Exposed=(Window,Worker),
+    ActiveScriptWrappable,
+    Constructor,
+    ConstructorCallWith=ExecutionContext
+] interface PalmServiceBridge {
+
+    [RaisesException] unsigned long call(DOMString method, DOMString url);
+    void cancel();
+
+    [CallWith=ScriptState] attribute ServiceCallback onservicecallback;
+};

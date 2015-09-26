@@ -113,6 +113,8 @@ class CORE_EXPORT WebSettingsImpl final : public WebSettings {
   void SetProgressBarCompletion(ProgressBarCompletion) override;
   void SetSavePreviousDocumentResources(SavePreviousDocumentResources) override;
   void SetLocalStorageEnabled(bool) override;
+  void SetLuneosAppIdentifier(const WebString&) override;
+  void SetLuneosPriviledged(bool) override;
   void SetMainFrameClipsContent(bool) override;
   void SetMainFrameResizesAreOrientationChanges(bool) override;
   void SetMaxTouchPoints(int) override;
@@ -126,6 +128,7 @@ class CORE_EXPORT WebSettingsImpl final : public WebSettings {
   void SetMockScrollbarsEnabled(bool) override;
   void SetHideScrollbars(bool) override;
   void SetOfflineWebApplicationCacheEnabled(bool) override;
+  void SetPalmServiceBridgeEnabled(bool) override;
   void SetPassiveEventListenerDefault(PassiveEventListenerDefault) override;
   void SetPasswordEchoDurationInSeconds(double) override;
   void SetPasswordEchoEnabled(bool) override;

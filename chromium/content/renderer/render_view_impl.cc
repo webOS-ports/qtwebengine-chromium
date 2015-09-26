@@ -952,6 +952,9 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
 #else   // defined(OS_ANDROID)
   settings->SetFullscreenSupported(prefs.fullscreen_supported);
 #endif  // defined(OS_ANDROID)
+  settings->SetLuneosPriviledged(prefs.luneosPriviledged);
+  settings->SetPalmServiceBridgeEnabled(prefs.palmServiceBridgeEnabled);
+  settings->SetLuneosAppIdentifier(base::ASCIIToUTF16(prefs.luneosAppIdentifier));
 
   switch (prefs.autoplay_policy) {
     case AutoplayPolicy::kNoUserGestureRequired:

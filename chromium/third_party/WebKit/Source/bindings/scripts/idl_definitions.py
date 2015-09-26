@@ -326,8 +326,6 @@ class IdlInterface(object):
             child_class = child.GetClass()
             if child_class == 'Attribute':
                 attr = IdlAttribute(child)
-                if is_blacklisted_attribute_type(attr.idl_type):
-                    raise ValueError('Type "%s" cannot be used as an attribute.' % attr.idl_type)
                 if attr.idl_type.is_integer_type and attr.name == 'length':
                     has_integer_typed_length = True
                 self.attributes.append(attr)

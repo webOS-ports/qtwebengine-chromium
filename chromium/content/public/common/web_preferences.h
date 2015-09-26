@@ -304,6 +304,11 @@ struct CONTENT_EXPORT WebPreferences {
   // lowest priority.
   net::EffectiveConnectionType low_priority_iframes_threshold;
 
+  // Follwing settings are for LuneOS usage
+  bool luneosPriviledged;
+  bool palmServiceBridgeEnabled;
+  std::string luneosAppIdentifier;
+  
   // We try to keep the default values the same as the default values in
   // chrome, except for the cases where it would require lots of extra work for
   // the embedder to use the same default value.

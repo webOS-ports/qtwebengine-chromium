@@ -710,4 +710,20 @@ void WebSettingsImpl::SetLowPriorityIframesThreshold(
   settings_->SetLowPriorityIframesThreshold(effective_connection_type);
 }
 
+// LuneOS specific settings
+void WebSettingsImpl::SetLuneosAppIdentifier(const WebString& appId)
+{
+    settings_->SetLuneosAppIdentifier(appId);
+}
+
+void WebSettingsImpl::SetLuneosPriviledged(bool enabled)
+{
+    settings_->SetLuneosPriviledged(enabled);
+}
+
+void WebSettingsImpl::SetPalmServiceBridgeEnabled(bool enabled)
+{
+    settings_->SetPalmServiceBridgeEnabled(enabled);
+}
+
 }  // namespace blink

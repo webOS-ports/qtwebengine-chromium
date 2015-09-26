@@ -845,6 +845,27 @@
       type: "PassiveListenerDefault",
     },
 
+    // LuneOS specific #####
+
+    // Whether PalmBridge is enabled or not
+    {
+      name: "palmServiceBridgeEnabled",
+      initial: false,
+    },
+
+    // Whether the LuneOS app has priviledge access
+    {
+      name: "luneosPriviledged",
+      initial: false,
+    },
+
+    // LuneOS app identifier
+    { 
+      name: "luneosAppIdentifier",
+      initial: "\"\"",
+      type: "String",
+    },
+
     // Whether the CSSPreloadScanner is used for externally CSS preloads. NoPreload
     // indicates that the scanner will be used, but no preloads issued.
     {

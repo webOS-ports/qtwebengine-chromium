@@ -204,6 +204,8 @@ class WebSettings {
   virtual void SetSavePreviousDocumentResources(
       SavePreviousDocumentResources) = 0;
   virtual void SetLocalStorageEnabled(bool) = 0;
+  virtual void SetLuneosAppIdentifier(const WebString&) = 0;
+  virtual void SetLuneosPriviledged(bool) = 0;
   virtual void SetMainFrameClipsContent(bool) = 0;
   virtual void SetMainFrameResizesAreOrientationChanges(bool) = 0;
   virtual void SetMaxTouchPoints(int) = 0;
@@ -217,6 +219,7 @@ class WebSettings {
   virtual void SetMockScrollbarsEnabled(bool) = 0;
   virtual void SetHideScrollbars(bool) = 0;
   virtual void SetOfflineWebApplicationCacheEnabled(bool) = 0;
+  virtual void SetPalmServiceBridgeEnabled(bool) = 0;
   virtual void SetPassiveEventListenerDefault(PassiveEventListenerDefault) = 0;
   virtual void SetPasswordEchoDurationInSeconds(double) = 0;
   virtual void SetPasswordEchoEnabled(bool) = 0;

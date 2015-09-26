@@ -1,0 +1,27 @@
+# Copyright 2017 Herman van Hazendonk. All rights reserved.
+
+import("//third_party/WebKit/Source/modules/modules.gni")
+import("//build/config/linux/pkg_config.gni")
+
+pkg_config("ls2") {
+  packages = [ "luna-service2", "glib-2.0" ]
+}  
+
+blink_modules_sources("webos") {
+  sources = [
+    "Logging.h",
+    "LunaServiceMgr.cpp",
+    "LunaServiceMgr.h",
+    "PalmServiceBridge.cpp",
+    "PalmServiceBridge.h",
+  ]
+   
+  public_configs = [
+    ":ls2",
+  ]
+  
+  libs = [
+    "PmLogLib",   
+  ]
+
+}

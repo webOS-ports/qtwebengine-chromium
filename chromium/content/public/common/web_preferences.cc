@@ -235,6 +235,9 @@ WebPreferences::WebPreferences()
       presentation_receiver(false),
       media_controls_enabled(true),
       do_not_update_selection_on_mutating_selection_range(false),
+      luneosPriviledged(false),
+      palmServiceBridgeEnabled(false),
+      luneosAppIdentifier(""),
 #if defined(OS_ANDROID)
       autoplay_policy(AutoplayPolicy::kUserGestureRequired),
 #else

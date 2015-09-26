@@ -394,6 +394,7 @@ modules_idl_files =
           "webmidi/MIDIOutput.idl",
           "webmidi/MIDIOutputMap.idl",
           "webmidi/MIDIPort.idl",
+          "webos/PalmServiceBridge.idl",
           "websockets/CloseEvent.idl",
           "websockets/WebSocket.idl",
           "webusb/USB.idl",

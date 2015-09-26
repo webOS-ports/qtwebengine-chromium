@@ -1168,6 +1168,9 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
 #elif defined(TOOLKIT_QT)
   settings->setFullscreenSupported(prefs.fullscreen_supported);
 #endif
+  settings->setLuneosPriviledged(prefs.luneosPriviledged);
+  settings->setPalmServiceBridgeEnabled(prefs.palmServiceBridgeEnabled);
+  settings->setLuneosAppIdentifier(base::ASCIIToUTF16(prefs.luneosAppIdentifier));
 
   WebNetworkStateNotifier::setOnLine(prefs.is_online);
   WebNetworkStateNotifier::setWebConnectionType(

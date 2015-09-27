@@ -21,6 +21,7 @@ blink::mojom::WindowFeaturesPtr ConvertWebWindowFeaturesToMojoWindowFeatures(
   result->status_bar_visible = web_window_features.status_bar_visible;
   result->tool_bar_visible = web_window_features.tool_bar_visible;
   result->scrollbars_visible = web_window_features.scrollbars_visible;
+  result->additionalFeatures = web_window_features.additionalFeatures;
   return result;
 }
 
@@ -39,6 +40,7 @@ blink::WebWindowFeatures ConvertMojoWindowFeaturesToWebWindowFeatures(
   result.status_bar_visible = window_features.status_bar_visible;
   result.tool_bar_visible = window_features.tool_bar_visible;
   result.scrollbars_visible = window_features.scrollbars_visible;
+  result.additionalFeatures = window_features.additionalFeatures;
   return result;
 }
 

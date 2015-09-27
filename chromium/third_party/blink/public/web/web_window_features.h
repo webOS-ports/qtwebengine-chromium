@@ -60,6 +60,8 @@ struct WebWindowFeatures {
   bool noreferrer = false;
   bool background = false;
   bool persistent = false;
+  
+  std::vector<std::string> additionalFeatures;
 };
 
 }  // namespace blink

@@ -2608,6 +2608,10 @@ void WebContentsImpl::CreateNewWindow(
     }
     return;
   }
+  
+  std::vector<base::string16> additional_features;
+  for (auto webStr : params.features->additionalFeatures)
+    additional_features.push_back(base::UTF8ToUTF16(base::StringPiece(webStr)));
 
   // Create the new web contents. This will automatically create the new
   // WebContentsView. In the future, we may want to create the view separately.
@@ -2650,6 +2654,11 @@ void WebContentsImpl::CreateNewWindow(
   if (!params.opener_suppressed) {
     if (!is_guest) {
       WebContentsView* new_view = raw_new_contents->view_.get();
+
+      // set the additional features required by the LuneOS app
+      // (ideally this information should be propagated using the IPC messaging)
+      new_view->setWindowAdditionalFeatures(additional_features);
+      new_view->setInitialTargetURL(params.target_url);
 
       // TODO(brettw): It seems bogus that we have to call this function on the
       // newly created object and give it one of its own member variables.
@@ -2701,7 +2710,7 @@ void WebContentsImpl::CreateNewWindow(
 
       delegate_->AddNewContents(this, std::move(new_contents),
                                 params.disposition, initial_rect,
-                                params.mimic_user_gesture, &was_blocked);
+                                params.mimic_user_gesture, &was_blocked, additional_features);
       if (!weak_new_contents)
         return;  // The delegate deleted |new_contents| during AddNewContents().
     }
@@ -2788,9 +2797,10 @@ void WebContentsImpl::ShowCreatedWindow(int process_id,
 
     base::WeakPtr<WebContentsImpl> weak_popup =
         raw_popup->weak_factory_.GetWeakPtr();
+    std::vector<base::string16> additional_features = raw_popup->view_.get()->getWindowAdditionalFeatures();
     if (delegate) {
       delegate->AddNewContents(this, std::move(popup), disposition,
-                               initial_rect, user_gesture, nullptr);
+                               initial_rect, user_gesture, nullptr, additional_features);
       if (!weak_popup)
         return;  // The delegate deleted |popup| during AddNewContents().
     }

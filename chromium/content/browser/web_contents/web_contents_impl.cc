@@ -1906,7 +1906,7 @@ void WebContentsImpl::CreateNewWindow(
       gfx::Rect initial_rect;
       delegate_->AddNewContents(
           this, new_contents, params.disposition, initial_rect,
-          params.user_gesture, &was_blocked);
+          params.user_gesture, &was_blocked, params.additional_features);
     }
     if (!was_blocked) {
       OpenURLParams open_params(params.target_url,

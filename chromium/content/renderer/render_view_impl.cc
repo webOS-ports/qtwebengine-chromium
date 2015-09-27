@@ -954,7 +954,7 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
 #endif  // defined(OS_ANDROID)
   settings->SetLuneosPriviledged(prefs.luneosPriviledged);
   settings->SetPalmServiceBridgeEnabled(prefs.palmServiceBridgeEnabled);
-  settings->SetLuneosAppIdentifier(base::ASCIIToUTF16(prefs.luneosAppIdentifier));
+  settings->SetLuneosAppIdentifier(blink::WebString::FromUTF8(prefs.luneosAppIdentifier));
 
   switch (prefs.autoplay_policy) {
     case AutoplayPolicy::kNoUserGestureRequired:

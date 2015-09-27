@@ -13,6 +13,7 @@
 #include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/size.h"
 #include "ui/gfx/native_widget_types.h"
+#include "url/gurl.h"
 
 namespace content {
 class RenderViewHost;
@@ -131,6 +132,13 @@ class WebContentsView {
   virtual bool IsEventTracking() const = 0;
   virtual void CloseTabAfterEventTracking() = 0;
 #endif
+
+  // Add accessors to set/get the window additional features wanted by the LuneOS apps
+  // The actual implementation is done in web_contents_view_qt.h
+  virtual void setWindowAdditionalFeatures(const std::vector<base::string16> &additional_features) {}
+  virtual std::vector<base::string16> getWindowAdditionalFeatures() {}
+  virtual void setInitialTargetURL(const GURL &initialURL) {}
+  virtual GURL getInitialTargetURL() {}
 };
 
 }  // namespace content

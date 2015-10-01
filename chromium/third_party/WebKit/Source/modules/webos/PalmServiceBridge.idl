@@ -1,13 +1,11 @@
 [
-    GlobalContext=DOMWindow&WorkerGlobalScope,
-    Conditional=PALM_SERVICE_BRIDGE,
+    Exposed=(Window,Worker),
     ActiveDOMObject,
     Constructor,
-    ConstructorCallWith=ExecutionContext,
-    JSNoStaticTables
+    ConstructorCallWith=ExecutionContext
 ] interface PalmServiceBridge {
 
-    [RaisesException] unsigned long call(in DOMString method, in DOMString url);
+    [RaisesException] unsigned long call(DOMString method, DOMString url);
     [RaisesException] void cancel();
 
     attribute StringCallback onservicecallback;

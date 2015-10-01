@@ -2,6 +2,7 @@
 #define PalmServiceBridge_h
 
 #include "core/dom/ActiveDOMObject.h"
+#include "bindings/core/v8/ScriptWrappable.h"
 #include "core/dom/StringCallback.h"
 #include "core/events/Event.h"
 #include "core/events/EventListener.h"
@@ -23,7 +24,8 @@ class Document;
 
 class PalmServiceBridge : public RefCounted<PalmServiceBridge>,
                           public LunaServiceManagerListener,
-                          public ActiveDOMObject {
+                          public ActiveDOMObject, public ScriptWrappable {
+    DEFINE_WRAPPERTYPEINFO();
     public:
         static PassRefPtr<PalmServiceBridge> create(ExecutionContext* context, bool subscribe = false)
         {

@@ -308,6 +308,9 @@ inlineTextBoxAccessibilityEnabled initial=false
 
 # #### LuneOS specific #####
 
+# Whether PalmBridge is enabled or not
+palmServiceBridgeEnabled initial=false
+
 # Whether the LuneOS app has priviledge access
 luneosPriviledged initial=false
 

@@ -179,6 +179,10 @@ WebPreferences::WebPreferences()
       ignore_main_frame_overflow_hidden_quirk(false),
       report_screen_size_in_physical_pixels_quirk(false)
 #endif
+      ,
+      luneosPriviledged(false),
+      palmServiceBridgeEnabled(false),
+      luneosAppIdentifier("")
 {
   standard_font_family_map[kCommonScript] =
       base::ASCIIToUTF16("Times New Roman");

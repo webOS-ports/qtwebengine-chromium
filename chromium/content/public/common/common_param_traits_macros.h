@@ -208,6 +208,9 @@ IPC_STRUCT_TRAITS_BEGIN(content::WebPreferences)
   IPC_STRUCT_TRAITS_MEMBER(ignore_main_frame_overflow_hidden_quirk)
   IPC_STRUCT_TRAITS_MEMBER(report_screen_size_in_physical_pixels_quirk)
 #endif
+  IPC_STRUCT_TRAITS_MEMBER(luneosPriviledged)
+  IPC_STRUCT_TRAITS_MEMBER(palmServiceBridgeEnabled)
+  IPC_STRUCT_TRAITS_MEMBER(luneosAppIdentifier)
 IPC_STRUCT_TRAITS_END()
 
 IPC_STRUCT_TRAITS_BEGIN(blink::WebWindowFeatures)

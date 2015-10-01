@@ -1119,6 +1119,9 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
   settings->setShrinksStandaloneImagesToFit(false);
   settings->setShrinksViewportContentToFit(true);
 #endif
+  settings->setLuneosPriviledged(prefs.luneosPriviledged);
+  settings->setPalmServiceBridgeEnabled(prefs.palmServiceBridgeEnabled);
+  settings->setLuneosAppIdentifier(base::ASCIIToUTF16(prefs.luneosAppIdentifier));
 
   WebNetworkStateNotifier::setOnLine(prefs.is_online);
   WebNetworkStateNotifier::setWebConnectionType(

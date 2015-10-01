@@ -110,6 +110,8 @@ public:
     virtual void setLoadsImagesAutomatically(bool) override;
     virtual void setLoadWithOverviewMode(bool) override;
     virtual void setLocalStorageEnabled(bool) override;
+    virtual void setLuneosAppIdentifier(const WebString&) override;
+    virtual void setLuneosPriviledged(bool) override;
     virtual void setMainFrameClipsContent(bool) override;
     virtual void setMainFrameResizesAreOrientationChanges(bool) override;
     virtual void setMaxTouchPoints(int) override;
@@ -121,6 +123,7 @@ public:
     virtual void setMockScrollbarsEnabled(bool) override;
     virtual void setOfflineWebApplicationCacheEnabled(bool) override;
     virtual void setOpenGLMultisamplingEnabled(bool) override;
+    virtual void setPalmServiceBridgeEnabled(bool) override;
     virtual void setPasswordEchoDurationInSeconds(double) override;
     virtual void setPasswordEchoEnabled(bool) override;
     virtual void setPerTilePaintingEnabled(bool) override;

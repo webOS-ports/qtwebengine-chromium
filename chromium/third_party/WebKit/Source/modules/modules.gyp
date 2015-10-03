@@ -65,6 +65,13 @@
           '<!@(pkg-config --cflags-only-I luna-service2)',
           '<!@(pkg-config --cflags-only-I glib-2.0)',
         ],
+        'link_settings': {
+          'libraries': [
+            '<!@(pkg-config --libs luna-service2)',
+            '<!@(pkg-config --libs glib-2.0)',
+            '-lPmLogLib',
+          ]
+        },
       }],
     ],
   },

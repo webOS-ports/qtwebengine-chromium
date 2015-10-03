@@ -2,8 +2,9 @@
 #define PalmServiceBridge_h
 
 #include "core/dom/ActiveDOMObject.h"
-#include "bindings/core/v8/ScriptWrappable.h"
 #include "core/dom/StringCallback.h"
+#include "bindings/core/v8/ScriptWrappable.h"
+#include "bindings/core/v8/V8Binding.h"
 #include "core/events/Event.h"
 #include "core/events/EventListener.h"
 #include "core/events/EventTarget.h"
@@ -47,16 +48,14 @@ class PalmServiceBridge : public RefCounted<PalmServiceBridge>,
 
         int token();
 
-        int call(const String& uri, const String& payload, ExceptionCode&);
-        void cancel(ExceptionCode&);
+        int call(const String& uri, const String& payload, ExceptionState&);
+        void cancel();
+        virtual void onservicecallback(const String&);
 
         // callback from LunaServiceManagerListener
         virtual void serviceResponse(const char* body);
 
         Document* document() const;
-
-        void setOnservicecallback(StringCallback *eventListener) { m_callbackFunction = eventListener; }
-        StringCallback* onservicecallback() const { return m_callbackFunction.get(); }
 
         // ActiveDOMObject:
         virtual void contextDestroyed();
@@ -64,7 +63,6 @@ class PalmServiceBridge : public RefCounted<PalmServiceBridge>,
         virtual void stop();
 
     private:
-        Persistent<StringCallback> m_callbackFunction;
         bool m_canceled;
         bool m_subscribed;
         bool m_inServiceCallback;
@@ -74,7 +72,6 @@ class PalmServiceBridge : public RefCounted<PalmServiceBridge>,
         PalmServiceBridge(ExecutionContext*, bool);
         PalmServiceBridge();
 };
-
 }
 
 #endif

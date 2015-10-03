@@ -15,6 +15,7 @@
 #include <wtf/text/WTFString.h>
 #include "bindings/core/v8/ScriptController.h"
 #include "bindings/core/v8/V8Binding.h"
+#include "bindings/core/v8/ExceptionState.h"
 #include "core/dom/StringCallback.h"
 #include <wtf/RefCountedLeakCounter.h>
 
@@ -163,8 +164,7 @@ PalmServiceBridge::~PalmServiceBridge()
     DEBUG("PalmServiceBridge[%p]: destroying (identifier %s privileged %d subscribed %d)",
           this, m_identifier, m_isPrivileged, m_subscribed);
 
-    ExceptionCode ec;
-    cancel(ec);
+    cancel();
 
     if (executionContext() && document())
         removeFromServicesByDocument(document(), this);
@@ -189,8 +189,7 @@ void PalmServiceBridge::detachServices(Document* doc)
     if (services) {
         while (services->size()) {
             ServicesSet::iterator sit = services->begin();
-            ExceptionCode ec;
-            (*sit)->cancel(ec);
+            (*sit)->cancel();
             services->erase(sit);
         }
         delete services;
@@ -209,8 +208,7 @@ void PalmServiceBridge::cancelServices(Document* doc)
     if (services) {
         for (ServicesSet::iterator sit = services->begin(); sit != services->end(); ++sit) {
             PalmServiceBridge* br = *sit;
-            ExceptionCode ec;
-            br->cancel(ec);
+            br->cancel();
         }
     }
 }
@@ -225,18 +223,22 @@ int PalmServiceBridge::token()
     return (int)listenerToken;
 }
 
-int PalmServiceBridge::call(const String& uri, const String& payload, ExceptionCode& ec)
+int PalmServiceBridge::call(const String& uri, const String& payload, ExceptionState& exceptionState)
 {
     DEBUG("PalmServiceBridge[%p]: calling on uri %s payload %s (identifier %s privileged %d subscribed %d)",
           this, uri.utf8().data(), payload.utf8().data(), m_identifier, m_isPrivileged, m_subscribed);
 
     LunaServiceManager::instance()->call(uri.utf8().data(), payload.utf8().data(), this, m_identifier, m_isPrivileged);
     if (LSMESSAGE_TOKEN_INVALID == listenerToken) {
-        ExceptionCode ec;
-        cancel(ec);
+        exceptionState.throwDOMException(EncodingError, "The LS2 call returned an invalid token.");
+        cancel();
     }
 
     return (int)listenerToken;
+}
+
+void PalmServiceBridge::onservicecallback(const String&)
+{
 }
 
 void PalmServiceBridge::serviceResponse(const char* body)
@@ -250,12 +252,13 @@ void PalmServiceBridge::serviceResponse(const char* body)
     DEBUG("PalmServiceBridge[%p]: got service response %s (identifier %s privileged %d subscribed %d)",
           this, body, m_identifier, m_isPrivileged, m_subscribed);
 
-    m_callbackFunction->handleEvent(String::fromUTF8(body));
+    /* here we will need to get the v8::Function associated with our v8 object */
+    onservicecallback(String::fromUTF8(body));
 
    // document()->updateStyleIfNeeded();
 }
 
-void PalmServiceBridge::cancel(ExceptionCode& ec)
+void PalmServiceBridge::cancel()
 {
     if (m_canceled)
         return;
@@ -271,12 +274,10 @@ void PalmServiceBridge::cancel(ExceptionCode& ec)
 
 void PalmServiceBridge::stop()
 {
-    ExceptionCode ec;
-
     DEBUG("PalmServiceBridge[%p]: stopping ... (identifier %s privileged %d subscribed %d)",
         this, m_identifier, m_isPrivileged, m_subscribed);
 
-    cancel(ec);
+    cancel();
 }
 
 bool PalmServiceBridge::canSuspend() const

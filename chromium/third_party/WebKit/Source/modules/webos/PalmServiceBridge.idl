@@ -6,8 +6,7 @@
 ] interface PalmServiceBridge {
 
     [RaisesException] unsigned long call(DOMString method, DOMString url);
-    [RaisesException] void cancel();
+    void cancel();
 
-    attribute StringCallback onservicecallback;
-    readonly attribute unsigned long token;
+    void onservicecallback(DOMString message);
 };

@@ -5,11 +5,13 @@
 #include "core/dom/StringCallback.h"
 #include "bindings/core/v8/ScriptWrappable.h"
 #include "bindings/core/v8/V8Binding.h"
+#include "bindings/core/v8/ScriptValue.h"
 #include "core/events/Event.h"
 #include "core/events/EventListener.h"
 #include "core/events/EventTarget.h"
 #include "LunaServiceMgr.h"
 #include <wtf/OwnPtr.h>
+#include "wtf/PassOwnPtr.h"
 
 // #include <heap/Strong.h>
 // #include <heap/StrongInlines.h>
@@ -50,7 +52,15 @@ class PalmServiceBridge : public RefCounted<PalmServiceBridge>,
 
         int call(const String& uri, const String& payload, ExceptionState&);
         void cancel();
-        virtual void onservicecallback(const String&);
+
+        void setOnservicecallback(ScriptValue& cbScriptValue) {
+            m_callbackScriptValue = cbScriptValue;
+            if (m_scriptState) {
+                m_scriptState->clear();
+            }
+            m_scriptState = adoptPtr(new ScriptStateProtectingContext(cbScriptValue.scriptState()));
+        }
+        ScriptValue onservicecallback() const { return m_callbackScriptValue; }
 
         // callback from LunaServiceManagerListener
         virtual void serviceResponse(const char* body);
@@ -63,6 +73,9 @@ class PalmServiceBridge : public RefCounted<PalmServiceBridge>,
         virtual void stop();
 
     private:
+        ScriptValue m_callbackScriptValue;
+        OwnPtr<ScriptStateProtectingContext> m_scriptState;
+
         bool m_canceled;
         bool m_subscribed;
         bool m_inServiceCallback;

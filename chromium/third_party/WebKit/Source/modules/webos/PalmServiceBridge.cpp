@@ -4,9 +4,6 @@
 
 #include "core/dom/Document.h"
 #include "core/events/Event.h"
-// #include "core/events/EventException.h"
-#include "core/events/EventListener.h"
-// #include "core/events/EventNames.h"
 #include "core/dom/ExceptionCode.h"
 #include "core/frame/Frame.h"
 #include "platform/Logging.h"
@@ -14,21 +11,10 @@
 #include "core/frame/Settings.h"
 #include <wtf/text/WTFString.h>
 #include "bindings/core/v8/ScriptController.h"
+#include "bindings/core/v8/ScriptState.h"
 #include "bindings/core/v8/V8Binding.h"
 #include "bindings/core/v8/ExceptionState.h"
-#include "core/dom/StringCallback.h"
 #include <wtf/RefCountedLeakCounter.h>
-
-/*
-#include "JSDOMWindow.h"
-#include "JSEventListener.h"
-#include "JSFunction.h"
-#include "ScriptSourceCode.h"
-#include "ScriptValue.h"
-#include "runtime_root.h"
-#include <runtime/JSLock.h>
-using namespace JSC;
-*/
 
 #include <map>
 #include <set>
@@ -166,6 +152,9 @@ PalmServiceBridge::~PalmServiceBridge()
 
     cancel();
 
+    if (m_scriptState)
+        m_scriptState->clear();
+
     if (executionContext() && document())
         removeFromServicesByDocument(document(), this);
 
@@ -237,13 +226,9 @@ int PalmServiceBridge::call(const String& uri, const String& payload, ExceptionS
     return (int)listenerToken;
 }
 
-void PalmServiceBridge::onservicecallback(const String&)
-{
-}
-
 void PalmServiceBridge::serviceResponse(const char* body)
 {
-    if (m_canceled || !document())
+    if (m_canceled || !document() || !m_scriptState)
         return;
 
     if (!body)
@@ -252,8 +237,18 @@ void PalmServiceBridge::serviceResponse(const char* body)
     DEBUG("PalmServiceBridge[%p]: got service response %s (identifier %s privileged %d subscribed %d)",
           this, body, m_identifier, m_isPrivileged, m_subscribed);
 
-    /* here we will need to get the v8::Function associated with our v8 object */
-    onservicecallback(String::fromUTF8(body));
+    /* here we need to get the v8::Function associated with our v8 object */
+    ScriptState *pScriptState = m_scriptState->get();
+    v8::Isolate *isolateCurrent = pScriptState->isolate();
+    v8::HandleScope handleScope(isolateCurrent);
+    v8::Handle<v8::Value> cbValue = m_callbackScriptValue.v8ValueUnsafe();
+    if (!cbValue.IsEmpty() && cbValue->IsFunction()) {
+        v8::Handle<v8::Function> cbFctV8 = cbValue.As<v8::Function>();
+        v8::Handle<v8::Value> argv[1];
+        argv[0] = v8::String::NewFromUtf8(isolateCurrent, body);
+
+        cbFctV8->Call(pScriptState->context()->Global(), 1, argv);
+    }
 
    // document()->updateStyleIfNeeded();
 }

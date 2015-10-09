@@ -1,3 +1,5 @@
+callback ServiceCallback = void (DOMString message);
+
 [
     Exposed=(Window,Worker),
     ActiveDOMObject,
@@ -8,5 +10,5 @@
     [RaisesException] unsigned long call(DOMString method, DOMString url);
     void cancel();
 
-    void onservicecallback(DOMString message);
+    attribute ServiceCallback onservicecallback;
 };

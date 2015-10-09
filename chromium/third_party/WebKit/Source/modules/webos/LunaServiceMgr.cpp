@@ -1,4 +1,8 @@
 #include "config.h"
+
+#include "base/message_loop/message_loop.h"
+#include "base/bind.h"
+
 #include <glib.h>
 #include "LunaServiceMgr.h"
 #include "Logging.h"
@@ -35,6 +39,18 @@ message_filter(LSHandle *sh, LSMessage* reply, void* ctx)
     }
 
     return false;
+}
+
+bool doIterateNext = true;
+void GMainContextIterate()
+{
+    g_main_context_iteration(g_main_context_default(), false);
+    // be called again in 100ms
+    base::MessageLoop *pCurrentMsgLoop = base::MessageLoop::current();
+    if( doIterateNext && pCurrentMsgLoop )
+    {
+        pCurrentMsgLoop->PostDelayedTask(FROM_HERE, base::Bind(&GMainContextIterate), base::TimeDelta::FromMilliseconds(100));
+    }
 }
 
 LunaServiceManager* s_instance = 0;
@@ -80,6 +96,7 @@ LunaServiceManager::LunaServiceManager() :
 
 LunaServiceManager::~LunaServiceManager()
 {
+    doIterateNext = false;
     // ED : Close the single connection to DBUS.
     if (palmServiceHandle) {
         bool retVal;
@@ -102,6 +119,8 @@ bool LunaServiceManager::init()
     LSError lserror;
     LSErrorInit(&lserror);
 
+    DEBUG("LunaServiceManager: Starting iteration on GLib event loop ...");
+    GMainContextIterate();
 
     DEBUG("LunaServiceManager: initializing ...");
 

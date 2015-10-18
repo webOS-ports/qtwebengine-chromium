@@ -103,7 +103,10 @@ class CONTENT_EXPORT WebContentsDelegate {
                               WindowOpenDisposition disposition,
                               const gfx::Rect& initial_pos,
                               bool user_gesture,
-                              bool* was_blocked) {}
+                              bool* was_blocked) {
+      std::vector<base::string16> additional_features;
+      AddNewContents(source,new_contents,disposition,initial_pos,user_gesture,was_blocked, additional_features);
+  }
 
   // Creates a new tab with the already-created WebContents 'new_contents'.
   // The window for the added contents should be reparented correctly when this

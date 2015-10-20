@@ -1731,6 +1731,11 @@ void WebContentsImpl::CreateNewWindow(
     if (!is_guest) {
       WebContentsView* new_view = new_contents->view_.get();
 
+      // set the additional features required by the LuneOS app
+      // (ideally this information should be propagated using the IPC messaging)
+      new_view->setWindowAdditionalFeatures(params.additional_features);
+      new_view->setInitialTargetURL(params.target_url);
+
       // TODO(brettw): It seems bogus that we have to call this function on the
       // newly created object and give it one of its own member variables.
       new_view->CreateViewForWidget(new_contents->GetRenderViewHost(), false);
@@ -1835,8 +1840,9 @@ void WebContentsImpl::ShowCreatedWindow(int route_id,
       contents->ResumeLoadingCreatedWebContents();
 
     if (delegate) {
+      std::vector<base::string16> additional_features = contents->view_.get()->getWindowAdditionalFeatures();
       delegate->AddNewContents(
-          this, contents, disposition, initial_rect, user_gesture, NULL);
+          this, contents, disposition, initial_rect, user_gesture, NULL, additional_features);
     }
   }
 }

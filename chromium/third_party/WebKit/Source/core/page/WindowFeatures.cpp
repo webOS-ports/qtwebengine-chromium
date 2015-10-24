@@ -120,9 +120,9 @@ WindowFeatures::WindowFeatures(const String& features)
                 else if (buffer[i] == '}')
                     unmatchedBraceCount--;
 
+                i++;
                 if (unmatchedBraceCount <= 0)
                     break;
-                i++;
             }
         }
         else {

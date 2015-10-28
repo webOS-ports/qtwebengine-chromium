@@ -242,7 +242,7 @@ public:
     virtual bool requestPointerLock(LocalFrame*) { return false; }
     virtual void requestPointerUnlock(LocalFrame*) {}
 
-    virtual IntSize minimumWindowSize() const { return IntSize(100, 100); }
+    virtual IntSize minimumWindowSize() const { return IntSize(100, 5); }
 
     virtual bool isChromeClientImpl() const { return false; }
 

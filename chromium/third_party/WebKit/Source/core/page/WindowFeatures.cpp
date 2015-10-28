@@ -207,7 +207,7 @@ WindowFeatures::WindowFeatures(const String& dialogFeaturesString, const FloatRe
     // - unadorned: trusted && boolFeature(features, "unadorned");
 
     width = floatFeature(features, "dialogwidth", 100, screenAvailableRect.width(), 620); // default here came from frame size of dialog in MacIE
-    height = floatFeature(features, "dialogheight", 100, screenAvailableRect.height(), 450); // default here came from frame size of dialog in MacIE
+    height = floatFeature(features, "dialogheight", 5, screenAvailableRect.height(), 450); // default here came from frame size of dialog in MacIE
 
     x = floatFeature(features, "dialogleft", screenAvailableRect.x(), screenAvailableRect.maxX() - width, -1);
     xSet = x > 0;

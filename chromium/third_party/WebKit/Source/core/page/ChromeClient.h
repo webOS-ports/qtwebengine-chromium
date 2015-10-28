@@ -218,7 +218,7 @@ public:
     virtual bool requestPointerLock() { return false; }
     virtual void requestPointerUnlock() { }
 
-    virtual IntSize minimumWindowSize() const { return IntSize(100, 100); }
+    virtual IntSize minimumWindowSize() const { return IntSize(100, 5); }
 
     virtual bool isChromeClientImpl() const { return false; }
 

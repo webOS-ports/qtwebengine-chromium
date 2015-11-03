@@ -55,26 +55,35 @@ bool NotificationPresenterImpl::isInitialized()
 
 bool NotificationPresenterImpl::show(Notification* notification)
 {
+    if (!isInitialized()) return false;
     return m_presenter->show(notification);
 }
 
 void NotificationPresenterImpl::close(Notification* notification)
 {
-    m_presenter->close(notification);
+    if (isInitialized()) {
+        m_presenter->close(notification);
 
-    // FIXME: Remove the duplicated call to cancel() when Chromium updated to override close() instead.
-    m_presenter->cancel(notification);
+        // FIXME: Remove the duplicated call to cancel() when Chromium updated to override close() instead.
+        m_presenter->cancel(notification);
+    }
 }
 
 void NotificationPresenterImpl::notificationObjectDestroyed(Notification* notification)
 {
-    m_presenter->objectDestroyed(notification);
+    if (isInitialized()) {
+        m_presenter->objectDestroyed(notification);
+    }
 }
 
 NotificationClient::Permission NotificationPresenterImpl::checkPermission(ExecutionContext* context)
 {
-    int result = m_presenter->checkPermission(WebSecurityOrigin(context->securityOrigin()));
-    return static_cast<NotificationClient::Permission>(result);
+    if (isInitialized()) {
+        int result = m_presenter->checkPermission(WebSecurityOrigin(context->securityOrigin()));
+        return static_cast<NotificationClient::Permission>(result);
+    }
+
+    return NotificationClient::PermissionDenied;
 }
 
 } // namespace blink

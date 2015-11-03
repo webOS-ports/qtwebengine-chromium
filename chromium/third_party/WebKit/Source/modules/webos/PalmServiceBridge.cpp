@@ -126,7 +126,12 @@ PalmServiceBridge::PalmServiceBridge(ExecutionContext* context, bool subscribe)
         v8::Local<v8::Value> identifier;
 
         identifier = document()->frame()->script().executeScriptInMainWorldAndReturnValue(ScriptSourceCode("PalmSystem && PalmSystem.getIdentifierForFrame(window.frameElement.id, window.frameElement.src)"));
-        m_identifier = strdup(toCoreString(v8::Handle<v8::String>::Cast(identifier)).utf8().data());
+
+        // Failure is reported as a null string.
+        if (identifier.IsEmpty() || !identifier->IsString())
+            m_identifier = strdup("dummy_identifier 0");
+        else
+            m_identifier = strdup(toCoreString(v8::Handle<v8::String>::Cast(identifier)).utf8().data());
     }
 
     if (settings != 0)

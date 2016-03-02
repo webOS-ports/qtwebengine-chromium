@@ -29,7 +29,7 @@ defaultTextEncodingName type=String
 # Do not hide chars typed in password fields immediately, but let the last char stay
 # visible for N seconds, configured by the passwordEchoDurationInSeconds setting
 # FIXME: Enable automatically if passwordEchoDurationInSeconds is set to a positive value.
-passwordEchoEnabled initial=false
+passwordEchoEnabled initial=true
 
 # Configure how long the last char should say visible in seconds.
 passwordEchoDurationInSeconds type=double, initial=1

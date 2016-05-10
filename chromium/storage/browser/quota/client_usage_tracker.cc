@@ -358,8 +358,18 @@ void ClientUsageTracker::AddCachedOrigin(const GURL& origin,
   DCHECK(IsUsageCacheEnabledForOrigin(origin));
 
   std::string host = net::GetHostOrSpecFromURL(origin);
-  int64_t* usage = &cached_usage_by_host_[host][origin];
-  int64_t delta = new_usage - *usage;
+
+  UsageMap& cached_usage_for_host = cached_usage_by_host_[host];
+  UsageMap::iterator found = cached_usage_for_host.find(origin);
+  if (found == cached_usage_for_host.end()) {
+      // try to add it smoothly
+      std::pair<GURL, int64> newPair(origin,0);
+      cached_usage_for_host.insert(newPair);
+  }
+  int64* usage = &(cached_usage_for_host[origin]);
+
+  //int64* usage = &cached_usage_by_host_[host][origin];
+  int64 delta = new_usage - *usage;
   *usage = new_usage;
   if (delta) {
     if (IsStorageUnlimited(origin))

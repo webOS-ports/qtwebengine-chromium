@@ -7,6 +7,7 @@
 
 #include <linux/input.h>
 #include <vector>
+#include <string>
 
 #include "base/memory/scoped_ptr.h"
 #include "ui/events/ozone/evdev/events_ozone_evdev_export.h"

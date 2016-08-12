@@ -127,7 +127,7 @@ WebPreferences::WebPreferences()
       disable_reading_from_canvas(false),
       strict_mixed_content_checking(false),
       strict_powerful_feature_restrictions(false),
-      password_echo_enabled(false),
+      password_echo_enabled(true),
       should_print_backgrounds(false),
       should_clear_document_background(true),
       enable_scroll_animator(false),

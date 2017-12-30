@@ -2011,11 +2011,13 @@ void TextureManager::Initialize() {
   default_textures_[kCubeMap] = CreateDefaultAndBlackTextures(
       GL_TEXTURE_CUBE_MAP, &black_texture_ids_[kCubeMap]);
 
-  if (feature_info_->IsWebGL2OrES3Context()) {
-    default_textures_[kTexture3D] = CreateDefaultAndBlackTextures(
-        GL_TEXTURE_3D, &black_texture_ids_[kTexture3D]);
-    default_textures_[kTexture2DArray] = CreateDefaultAndBlackTextures(
-        GL_TEXTURE_2D_ARRAY, &black_texture_ids_[kTexture2DArray]);
+  if (feature_info_->gl_version_info().is_es3_capable) {
+      if (feature_info_->IsWebGL2OrES3Context()) {
+        default_textures_[kTexture3D] = CreateDefaultAndBlackTextures(
+            GL_TEXTURE_3D, &black_texture_ids_[kTexture3D]);
+        default_textures_[kTexture2DArray] = CreateDefaultAndBlackTextures(
+            GL_TEXTURE_2D_ARRAY, &black_texture_ids_[kTexture2DArray]);
+      }
   }
 
   if (feature_info_->feature_flags().oes_egl_image_external ||
